@@ -1,9 +1,9 @@
-name: Deploy to cPanel via FTP
+name: Deploy to cPanel via FTPS
 
 on:
   push:
     branches:
-      - main  # Trigger deployment only on push to main branch
+      - main  # Adjust if you're using a different deployment branch
 
 jobs:
   deploy:
@@ -13,23 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Optional: Uncomment below if using a JS framework (React, Vue, etc.)
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '18'
-
-      # - name: Install dependencies
-      #   run: npm install
-
-      # - name: Build project
-      #   run: npm run build
-
-      - name: FTP Deploy
+      - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: 194.163.180.153               # ✅ No ftp:// prefix
-          username: ${{ secrets.FTP_USERNAME }} # ✅ Set this in your repo secrets
-          password: ${{ secrets.FTP_PASSWORD }} # ✅ Set this in your repo secrets
-          server-dir: ${{ secrets.FTP_REMOTE_DIR }} # e.g., /public_html/
-          local-dir: ./                         # or ./dist for built frontend
+          server: ftp.futureconnect.rw
+          username: ${{ secrets.FTP_USERNAME }}        # Set this secret in GitHub
+          password: ${{ secrets.FTP_PASSWORD }}        # Set this secret in GitHub
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}    # e.g., /public_html/
+          local-dir: ./                                # Root directory of your HTML/CSS/JS
+          protocol: ftps

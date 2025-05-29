@@ -1,15 +1,4 @@
 deployment:
   tasks:
-    - echo "🚀 Starting safe deployment to public_html..."
-
-    # Define destination path
     - export DEPLOYPATH=/home4/futureconnect/public_html
-
-    # Create destination if missing
-    - mkdir -p $DEPLOYPATH
-
-    # Copy all repo files to public_html, excluding .git and .cpanel.yml
-    - echo "📦 Copying files to $DEPLOYPATH"
-    - rsync -av --delete --exclude='.git' --exclude='.cpanel.yml' ./ $DEPLOYPATH/
-
-    - echo "✅ Deployment done!"
+    - /bin/cp -R * $DEPLOYPATH
